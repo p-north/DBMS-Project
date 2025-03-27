@@ -1,4 +1,4 @@
-##Step 2: Project Specifications (10 Points)##
+##Step 2: Project Specifications (10 Points)
 
 	member = {memberId, firstName,lastName, dateOfBirth, email, phone, address, membershipStart, membershipEnd}
 
