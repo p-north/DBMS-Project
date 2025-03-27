@@ -1,22 +1,22 @@
 ## Step 2: Project Specifications (10 Points)
 
-	member = {memberId, firstName,lastName, dateOfBirth, email, phone, address, membershipStart, membershipEnd}
+	member = {memberId (PK), firstName,lastName, dateOfBirth, email, phone, address, membershipStart, membershipEnd}
 
-	item = { itemId, title, itemType, author, publisher, publicationYear, edition, genre, language, ISBN, availableCopies, totalCopies, location }
+	item = { itemId (PK) , title, itemType, author, publisher, publicationYear, edition, genre, language, ISBN, availableCopies, totalCopies, location }
 
 	personnel = {employeeId, name, position, department, hireDate, contactInfo}
 	
-	borrow_transaction = { transactionId, memberId, itemId, borrowDate, dueDate, returnDate, fineAmount }
+	borrow_transaction = { transactionId (PK), memberId (FK), itemId (FK), borrowDate, dueDate, returnDate, fineAmount }
 	
-	fine = { fineId, memberId, transactionId, amount, issueDate, paymentDate }
+	fine = { fineId (PK), memberId (FK), transactionId (FK), amount, issueDate, paymentDate }
 
-	event = { eventId, eventName, eventType, description, targetAudience, date, startTime, endTime, roomId }
+	event = { eventId (PK), eventName, eventType, description, targetAudience, date, startTime, endTime, roomId (FK) }
 
-	room = {roomId, roomName, capacity}
+	room = {roomId (PK), roomName, capacity}
 
-	future_item = {futureItemId, title, itemType, author, expectedArrivalDate, status}
+	future_item = {futureItemId (PK), title, itemType, author, expectedArrivalDate, status}
 
-	reservations = { reservation, memberId, itemId, reservationDate, status}
+	reservations = { reservationID (PK), memberId (FK), itemId (FK), reservationDate, status}
 
 ## Relationships:
 
