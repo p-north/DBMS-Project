@@ -1,4 +1,4 @@
-**Step 2: Project Specifications (10 Points)**
+##Step 2: Project Specifications (10 Points)##
 
 	member = {memberId, firstName,lastName, dateOfBirth, email, phone, address, membershipStart, membershipEnd}
 
@@ -18,28 +18,36 @@
 
 	reservations = { reservation, memberId, itemId, reservationDate, status}
 
-**Relationships:**
+##Relationships:
 
-member -> borrow_transaction 
+**member -> borrow_transaction**
+
 A member can have multiple borrow transactions, but each only to one member meaning that this is a one-to-many
 
-item -> borrow_transaction
+**item -> borrow_transaction**
+
 An item can be borrowed multiple times, but each transaction is only for one item. Meaning this is a one-to-many
 
-borrow_transaction -> fine
+**borrow_transaction -> fine**
+
 A transaction may result in a fine but a fine is only for one transaction. Meaning this is a one to many
 
-member -> fine
+**member -> fine**
+
 A member can place multiple reservations, but each reservation is only for one of the members. Meaning this is a one to many.
 
-member -> reservations
+**member -> reservations**
+
 A member can place multiple reservations,but each reservation is only for one member.. Meaning this is a one to many
 
-item -> reservations
+**item -> reservations**
+
 An item can be reserved multiple times, but each reservation is only for one item. Meaning this is a one to many
 
-room -> event 
+**room -> event**
+
 A room can host multiple events, but each event is in one room.
 
-personnel -> event
+**personnel -> event**
+
 Personnel organize events, but this isn’t explicitly modeled. Meaning this is indirect.
