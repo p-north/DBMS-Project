@@ -19,16 +19,22 @@
 	reservations = { reservation, memberId, itemId, reservationDate, status}
 
 **Relationships:**
+
 member -> borrow_transaction 
 A member can have multiple borrow transactions, but each only to one member meaning that this is a one-to-many
+
 item -> borrow_transaction
 An item can be borrowed multiple times, but each transaction is only for one item. Meaning this is a one-to-many
+
 borrow_transaction -> fine
 A transaction may result in a fine but a fine is only for one transaction. Meaning this is a one to many
+
 member -> fine
 A member can place multiple reservations, but each reservation is only for one of the members. Meaning this is a one to many.
+
 member -> reservations
 A member can place multiple reservations,but each reservation is only for one member.. Meaning this is a one to many
+
 item -> reservations
 An item can be reserved multiple times, but each reservation is only for one item. Meaning this is a one to many
 
