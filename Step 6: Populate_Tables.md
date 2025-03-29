@@ -60,6 +60,18 @@ INSERT INTO fine (fineID, memberID, transactionID, amount, issueDate, paymentDat
 (9, 7, 7, 0.25, '2025-03-26', '2025-03-28'),
 (10, 10, 10, 2.00, '2025-04-21', NULL);
 
+INSERT INTO room (roomId, roomName, capacity) VALUES
+(1, 'Reading Room A', 20),
+(2, 'Conference Room B', 15),
+(3, 'Study Room C', 10),
+(4, 'Multimedia Room D', 25),
+(5, 'Event Hall E', 50),
+(6, 'Quiet Room F', 8),
+(7, 'Children’s Room G', 30),
+(8, 'Meeting Room H', 12),
+(9, 'Tech Lab I', 18),
+(10, 'Seminar Room J', 22);
+
 INSERT INTO event (eventId, eventName, eventType, description, targetAudience, date, startTime, endTime, roomId) VALUES
 (1, 'Book Club', 'Discussion', 'Monthly book discussion', 'Adults', '2025-04-05', '14:00', '15:30', 1),
 (2, 'Story Time', 'Reading', 'Children’s story session', 'Kids', '2025-04-10', '10:00', '11:00', 7),
