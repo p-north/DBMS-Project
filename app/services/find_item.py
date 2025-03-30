@@ -3,7 +3,6 @@ import sqlite3
 
 
 # Basic-Search
-# Advanced-Search
 # Keyword-Based
 
 def find_item_basic(title=None, author=None, ISBN=None):
@@ -97,12 +96,12 @@ def find_item_keyword(keyword):
 #     print("Not found")
 
 # Testing Purposes Only ---------------------------------
-keyword = input("Enter keyword: ")
-res = find_item_keyword(keyword)
-if res:
-    for row in res:
-        print(dict(row))
-else:
-    print("Not found")
+# keyword = input("Enter keyword: ")
+# res = find_item_keyword(keyword)
+# if res:
+#     for row in res:
+#         print(dict(row))
+# else:
+#     print("Not found")
 
     
