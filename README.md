@@ -1,4 +1,7 @@
 # DBMS-Project
+
+![DB Schema](images/Schema.png)
+
 ## Step 2: Project Specifications (10 Points)
 
 	member = {memberId (PK), firstName,lastName, dateOfBirth, email, phone, address, membershipStart, membershipEnd}
@@ -52,6 +55,8 @@ A room can host multiple events, but each event is in one room.
 **personnel -> event**
 
 Personnel organize events, but this isn’t explicitly modeled. Meaning this is indirect.
+
+
 
 ![ER Diagram](images/ER_Diagram.png)
 
