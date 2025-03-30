@@ -11,7 +11,16 @@ def borrow_item(itemID, memberID):
     # create cursor
     cursor = conn.cursor()
     
+
     try:
+        # Check if user has not already borrwed it
+        cursor.execute("SELECT * FROM borrow_transaction t WHERE t.itemID = ? AND t.memberID = ? AND t.returnDate IS NULL", (itemID, memberID))
+        dupCheck = cursor.fetchone()
+        if dupCheck:
+            print("Member already borowed the item. Please return if no longer needed")
+            return None
+        
+        
         # Get the item that the user needs.
         getItemQuery = "SELECT * FROM item i WHERE i.itemID = ?;"
         cursor.execute(getItemQuery, (itemID,))
@@ -21,6 +30,7 @@ def borrow_item(itemID, memberID):
         availableCopies = item["availableCopies"]
         totalCopies = item["totalCopies"]
         if(availableCopies < 1):
+            print("No available copies for item!")
             return None
         # If available, checkout the item
         # first reduce avalable copies from item
@@ -43,7 +53,9 @@ def borrow_item(itemID, memberID):
         cursor.execute(borrowQuery, (transactionID, memberID, itemID, borrowDate, dueDate, None, fineAmount))
         # commit the borrow
         conn.commit()
-        print("Borrow for item success")
+        print("Borrow for item success!")
+        print("Due Date: ", dueDate)
+        print("transactionID: ", transactionID)        
 
     except sqlite3.Error as e:
         print("Error fetching item for borrow: ", e)
