@@ -29,25 +29,104 @@ def memLogin():
         else:
             print("Member not found. Please try again.")
 
+# menu to find an item
 def memFindItem():
-    clear_screen()
-    action = questionary.select(
-        "Find Item - Choose an action:",
-        choices=["Find By Title", "Find By Author", "Find By ISBN", "Find By Keyword", "Back"]
-    ).ask()
+    while True:
+        clear_screen()
+        action = questionary.select(
+            "Find Item - Choose an action:",
+            choices=["Find By Title", "Find By Author", "Find By ISBN", "Find By Keyword", "Back"]
+        ).ask()
 
-    if action == "Find By Title":
-        print("Auraaaa")
-    elif action == "Find By Author":
-        print("Auraaaa")
-    elif action == "Find By ISBN":
-        print("Auraaaa")
-    elif action == "Find By Keyword":
-        print("Auraaaa MAxingggg")
-    elif action == "Back":
-        return
-        
-
+        if action == "Find By Title":
+            title = questionary.text("Enter the title: ").ask()
+            res = find_item_basic(title=title)
+            if res:
+                print("\nSearch Results:")
+                for row in res:
+                    print("Title: ", dict(row)["title"])
+                    print("Type: ", dict(row)["itemType"])
+                    print("Author: ", dict(row)["author"])
+                    print("Publisher: ", dict(row)["publisher"])
+                    print("Year: ", dict(row)["publicationYear"])
+                    print("Edition: ", dict(row)["edition"])
+                    print("Genre: ", dict(row)["genre"])
+                    print("Language: ", dict(row)["language"])
+                    print("Copies Available: ", dict(row)["availableCopies"])
+                    print("Copies Total: ", dict(row)["totalCopies"])
+                    print("Location: ", dict(row)["location"])
+                    
+            else:
+                print("Not found")
+            input("\nPress Enter to return to the menu...")
+        elif action == "Find By Author":
+            author = questionary.text("Enter the author: ").ask()
+            res = find_item_basic(author=author)
+            if res:
+                print("\nSearch Results:")
+                for row in res:
+                    print("Title: ", dict(row)["title"])
+                    print("Type: ", dict(row)["itemType"])
+                    print("Author: ", dict(row)["author"])
+                    print("Publisher: ", dict(row)["publisher"])
+                    print("Year: ", dict(row)["publicationYear"])
+                    print("Edition: ", dict(row)["edition"])
+                    print("Genre: ", dict(row)["genre"])
+                    print("Language:  ", dict(row)["language"])
+                    print("Copies Available: ", dict(row)["availableCopies"])
+                    print("Copies Total: ", dict(row)["totalCopies"])
+                    print("Location: ", dict(row)["location"])
+                    
+            else:
+                print("Not found")
+            input("\nPress Enter to return to the menu...")
+        elif action == "Find By ISBN":
+            ISBN = questionary.text("Enter the ISBN: ").ask()
+            res = find_item_basic(ISBN=ISBN)
+            if res:
+                print("\nSearch Results:")
+                for row in res:
+                    print("Title: ", dict(row)["title"])
+                    print("Type: ", dict(row)["itemType"])
+                    print("Author: ", dict(row)["author"])
+                    print("Publisher: ", dict(row)["publisher"])
+                    print("Year: ", dict(row)["publicationYear"])
+                    print("Edition: ", dict(row)["edition"])
+                    print("Genre: ", dict(row)["genre"])
+                    print("Language:  ", dict(row)["language"])
+                    print("Copies Available: ", dict(row)["availableCopies"])
+                    print("Copies Total: ", dict(row)["totalCopies"])
+                    print("Location: ", dict(row)["location"])
+                    
+            else:
+                print("Not found")
+            input("\nPress Enter to return to the menu...")
+        elif action == "Find By Keyword":
+            keyword = questionary.text("Enter a keyword: ").ask()
+            res = find_item_keyword(keyword)
+            if res:
+                print("\nSearch Results:")
+                for row in res:
+                    print("Title: ", dict(row)["title"])
+                    print("Type: ", dict(row)["itemType"])
+                    print("Author: ", dict(row)["author"])
+                    print("Publisher: ", dict(row)["publisher"])
+                    print("Year: ", dict(row)["publicationYear"])
+                    print("Edition: ", dict(row)["edition"])
+                    print("Genre: ", dict(row)["genre"])
+                    print("Language:  ", dict(row)["language"])
+                    print("Copies Available: ", dict(row)["availableCopies"])
+                    print("Copies Total: ", dict(row)["totalCopies"])
+                    print("Location: ", dict(row)["location"])
+                    print("\n-------------------------------------------------\n")
+                    
+            else:
+                print("Not found")
+            input("\nPress Enter to return to the menu...")    
+        elif action == "Back":
+            return
+            
+# test email: john.smith@email.com
 
 def main_menu():
     while True:
@@ -56,7 +135,7 @@ def main_menu():
         if LOGGED_IN_MEMBER_ID is None:
             memLogin()  # Ensure user is logged in before showing the menu
         choice = questionary.select(
-            "\n\nAura Library Management System - Choose an option:",
+            f"\n\nMemberId: {LOGGED_IN_MEMBER_ID}\n Aura Library Management System - Choose an option:",
             choices=[
                 "Find Item",
                 "Borrow Item",
