@@ -202,6 +202,27 @@ CREATE TABLE IF NOT EXISTS reservations (
     FOREIGN KEY (itemId) REFERENCES future_item(futureItemId),
     FOREIGN KEY (memberId) REFERENCES member(memberId)
 );
+
+CREATE TABLE volunteer_new (
+    volunteerID INTEGER PRIMARY KEY,
+    memberID INTEGER NOT NULL,
+    eventID INTEGER NOT NULL,
+    signup_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    role TEXT NOT NULL,
+    FOREIGN KEY (memberID) REFERENCES member(memberID),
+    FOREIGN KEY (eventID) REFERENCES event(eventID)
+);
+
+CREATE TABLE IF NOT EXISTS help_request (
+    requestID INTEGER PRIMARY KEY,
+    memberID INTEGER NOT NULL,
+    employeeID INTEGER NOT NULL,
+    requestDate DATE NOT NULL,
+    topic TEXT NOT NULL,  -- The topic of help (e.g., Research, Book Recommendation)
+    status TEXT CHECK (status IN ('Pending', 'In Progress', 'Resolved')) DEFAULT 'Pending',
+    FOREIGN KEY (memberID) REFERENCES member(memberID),
+    FOREIGN KEY (employeeID) REFERENCES personnel(employeeID)
+);
 ```
 
 ```sql
@@ -313,4 +334,28 @@ INSERT INTO reservations (reservationID, memberId, itemId, reservationDate, stat
 (8, 8, 8, '2025-03-29', 'Pending'),
 (9, 9, 9, '2025-03-15', 'Confirmed'),
 (10, 10, 10, '2025-03-20', 'Pending');
+
+INSERT INTO volunteer (volunteerID, memberID, eventID, signUpDate, role) VALUES
+(1, 1, 3, '2025-03-25', 'Event Setup'),
+(2, 2, 5, '2025-04-10', 'Usher'),
+(3, 3, 10, '2025-04-15', 'Game Night Host'),
+(4, 4, 2, '2025-03-20', 'Storyteller'),
+(5, 5, 7, '2025-04-05', 'Writing Mentor'),
+(6, 6, 4, '2025-03-30', 'Tech Assistant'),
+(7, 7, 6, '2025-04-20', 'Movie Setup'),
+(8, 8, 8, '2025-04-25', 'Craft Instructor'),
+(9, 9, 1, '2025-03-15', 'Discussion Leader'),
+(10, 10, 9, '2025-04-01', 'History Presenter');
+
+INSERT INTO help_request (requestID, memberID, employeeID, requestDate, topic, status) VALUES
+(1, 1, 2, '2025-03-01', 'Research Assistance', 'Resolved'),
+(2, 2, 3, '2025-03-05', 'Finding a Book', 'In Progress'),
+(3, 3, 5, '2025-03-10', 'Citation Help', 'Pending'),
+(4, 4, 1, '2025-03-15', 'Library Card Issues', 'Resolved'),
+(5, 5, 4, '2025-03-18', 'E-Book Access', 'In Progress'),
+(6, 6, 6, '2025-03-22', 'Historical Archives', 'Pending'),
+(7, 7, 7, '2025-03-25', 'Interlibrary Loan', 'Resolved'),
+(8, 8, 8, '2025-03-27', 'Tech Help', 'In Progress'),
+(9, 9, 9, '2025-03-30', 'Audiobook Recommendations', 'Pending'),
+(10, 10, 10, '2025-04-01', 'Library Tour', 'Resolved');
 ```
