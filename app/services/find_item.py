@@ -18,9 +18,10 @@ def find_item_basic(title=None, author=None, ISBN=None):
     # sql query
     query = None
     result = None
+
     
     if title:
-        query = "SELECT * FROM item i WHERE i.title = ?"
+        query = "SELECT * FROM item i WHERE i.title LIKE '%' || ?;"
         # execute the query in try catch block
         try:
             cursor.execute(query,(title.title(),))
@@ -28,7 +29,7 @@ def find_item_basic(title=None, author=None, ISBN=None):
         except sqlite3.Error as e:
             print("Error fetching title for item...", e)
     if author:
-        query = "SELECT * FROM item i WHERE i.author = ?"
+        query = "SELECT * FROM item i WHERE i.author LIKE '%' || ? ?"
         # execute the query in try catch block
         try:
             cursor.execute(query,(author.title(),))

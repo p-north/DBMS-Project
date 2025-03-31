@@ -125,9 +125,31 @@ def memFindItem():
             input("\nPress Enter to return to the menu...")    
         elif action == "Back":
             return
-            
+def memBorrowItem():
+    while True:
+        global LOGGED_IN_MEMBER_ID
+        clear_screen()
+        action = questionary.select(
+            "Borrow Item - Choose an action:",
+            choices=["Borrow an Item", "Back"]
+        ).ask()
+        
+        if action == "Borrow an Item":
+            # ask for the title
+            title = questionary.text("Enter the title: ").ask()
+            titleRes = find_item_basic(title=title)
+            if titleRes:
+                # get the itemID
+                itemID = titleRes[0]["itemID"]
+                # send to borrowItem function
+                borrow_item(itemID, memberID=LOGGED_IN_MEMBER_ID)
+            else:
+                print("Not found")
+            input("\nPress Enter to return to the menu...") 
+        elif action == "Back":
+            return
+       
 # test email: john.smith@email.com
-
 def main_menu():
     while True:
         global LOGGED_IN_MEMBER_ID
@@ -151,7 +173,8 @@ def main_menu():
         ).ask()
         if choice == "Find Item":
             memFindItem()
-            
+        elif choice == "Borrow Item":
+            memBorrowItem()
         elif choice == "Logout":
             print("Logging out...")
             LOGGED_IN_MEMBER_ID = None
