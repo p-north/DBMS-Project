@@ -20,7 +20,8 @@ def memLogin():
     while True:
         clear_screen()
         # ask for the user email
-        memberEmail = questionary.text("Enter your member email: ").ask()
+        print("--Aura Library Member Login--\n")
+        memberEmail = questionary.text("Enter your email: ").ask()
         loginRes = login(memberEmail)
         if loginRes:
             LOGGED_IN_MEMBER_ID = loginRes 
@@ -196,7 +197,32 @@ def memReturnItem():
         
         elif action == "Back":
             return
-        
+def memDonateItem():
+    while True:
+        global LOGGED_IN_MEMBER_ID
+        clear_screen()
+        action = questionary.select(
+            "Donate Item - Choose an action:",
+            choices=["Donate an Item", "Back"]
+        ).ask()
+
+        if action == "Donate an Item":
+           title =  questionary.text("Enter the title: ").ask()
+           author = questionary.text("Enter the author: ").ask()
+           publisher = questionary.text("Enter the publisher: ").ask()
+           year = questionary.text("Enter the publication year: ").ask()
+           edition = questionary.text("Enter the edition: ").ask()
+           genre = questionary.text("Enter the genre: ").ask()
+           language = questionary.text("Enter the language: ").ask()
+           isbn = questionary.text("Enter the ISBN: ").ask()
+           totalCopies = questionary.text("Enter number of copies: ").ask()
+           #Send the attributes to donate item function
+           donate_item(title, author, publisher, year, edition, genre, language, isbn, totalCopies)
+           input("\nPress Enter to return to the menu...") 
+        elif action == "Back":
+            return
+    
+           
 # test email: john.smith@email.com
 def main_menu():
     while True:
@@ -225,6 +251,8 @@ def main_menu():
             memBorrowItem()
         elif choice == "Return Item":
             memReturnItem()
+        elif choice == "Donate Item":
+            memDonateItem()
         elif choice == "Logout":
             print("Logging out...")
             LOGGED_IN_MEMBER_ID = None
