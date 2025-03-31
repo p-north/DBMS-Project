@@ -1,4 +1,4 @@
-from ..setup_database import connect_db
+from setup_database import connect_db
 import sqlite3
 
 
@@ -18,20 +18,21 @@ def find_item_basic(title=None, author=None, ISBN=None):
     # sql query
     query = None
     result = None
+
     
     if title:
-        query = "SELECT * FROM item i WHERE i.title = ?"
+        query = "SELECT * FROM item i WHERE i.title LIKE '%' || ?;"
         # execute the query in try catch block
         try:
-            cursor.execute(query,(title,))
+            cursor.execute(query,(title.title(),))
             result = cursor.fetchall()  # Add to the result list)
         except sqlite3.Error as e:
             print("Error fetching title for item...", e)
     if author:
-        query = "SELECT * FROM item i WHERE i.author = ?"
+        query = "SELECT * FROM item i WHERE i.author LIKE '%' || ?;"
         # execute the query in try catch block
         try:
-            cursor.execute(query,(author,))
+            cursor.execute(query,(author.title(),))
             result = cursor.fetchall()  # Add to the result list
         except sqlite3.Error as e:
             print("Error fetching author for item...",e)
@@ -84,6 +85,19 @@ def find_item_keyword(keyword):
         
     cursor.close()
     return result
+
+# Helper function find an item by the item id
+def findByItemID(itemID):
+    # User input title, author or ISBN
+    conn = connect_db()
+    
+    # Create a cursor
+    cursor = conn.cursor()
+    
+    iQuery = "SELECT * FROM item i WHERE i.itemID = ?"
+    cursor.execute(iQuery, (itemID,))
+    res = cursor.fetchall()
+    return res
     
 
 # # Testing Purposes Only ---------------------------------
