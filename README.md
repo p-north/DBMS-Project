@@ -61,7 +61,8 @@ A room can host multiple events, but each event is in one room.
 
 Personnel organize events, but this isn’t explicitly modeled. Meaning this is indirect.
 
-
+**member → volunteer** 
+A member can volunteer for multiple positions, but each volunteer position is only for one member. Meaning this is a one to many
 
 ![ER Diagram](images/ER_Diagram.png)
 
