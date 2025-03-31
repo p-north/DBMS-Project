@@ -67,7 +67,7 @@ A member can volunteer for multiple positions, but each volunteer position is on
 **personnel → help_request**
 A personnel can handle multiple help requests, but each help request is assigned to one personnel. Meaning this is a one to many
 
-![ER Diagram](images/ER_Diagram.png)
+![ER Diagram](images/ER_Diagram.jpg)
 
 # Identifying FD's
 
