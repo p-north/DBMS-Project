@@ -22,6 +22,11 @@
 
 	reservations = { reservationID (PK), memberId (FK), itemId (FK), reservationDate, status}
 
+ 	volunteer = {volunteerId (PK), memberId (FK), eventId (FK), signupDate, role}
+
+	help_request = {requestId (PK), memberId (FK), employeeId (FK), requestDate, topic, status}
+  	
+
 ## Relationships:
 
 **member -> borrow_transaction**
