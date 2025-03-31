@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS reservations (
     FOREIGN KEY (memberId) REFERENCES member(memberId)
 );
 
-CREATE TABLE volunteer_new (
+CREATE TABLE volunteer (
     volunteerID INTEGER PRIMARY KEY,
     memberID INTEGER NOT NULL,
     eventID INTEGER NOT NULL,
