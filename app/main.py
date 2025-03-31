@@ -11,7 +11,7 @@ import os
 # global variable for the memberID of logged in user
 LOGGED_IN_MEMBER_ID = None
 
-# function to clear the screen each time. For better user
+# function to clear the screen each time. For better user experience
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -28,7 +28,8 @@ def memLogin():
             return
             break
         else:
-            print("Member not found. Please try again.")
+            print("Member not found.")
+        input("\nPress Enter to try again...")    
 
 # menu to find an item
 def memFindItem():
