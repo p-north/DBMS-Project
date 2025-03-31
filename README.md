@@ -1,6 +1,6 @@
 # DBMS-Project
 
-![DB Schema](images/Schema.png)
+![DB Schema](images/Updated_Schema.png)
 
 ## Step 2: Project Specifications (10 Points)
 
