@@ -85,6 +85,19 @@ def find_item_keyword(keyword):
         
     cursor.close()
     return result
+
+# Helper function find an item by the item id
+def findByItemID(itemID):
+    # User input title, author or ISBN
+    conn = connect_db()
+    
+    # Create a cursor
+    cursor = conn.cursor()
+    
+    iQuery = "SELECT * FROM item i WHERE i.itemID = ?"
+    cursor.execute(iQuery, (itemID,))
+    res = cursor.fetchall()
+    return res
     
 
 # # Testing Purposes Only ---------------------------------

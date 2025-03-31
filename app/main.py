@@ -2,9 +2,9 @@ import sqlite3
 import questionary
 from services.borrow_item import borrow_item
 from services.donate_item import donate_item
-from services.find_item import find_item_basic, find_item_keyword
+from services.find_item import find_item_basic, find_item_keyword, findByItemID
 from services.memberLogin import login
-from services.return_item import return_item
+from services.return_item import return_item, show_borrowed_item
 import os
 
 
@@ -148,7 +148,55 @@ def memBorrowItem():
             input("\nPress Enter to return to the menu...") 
         elif action == "Back":
             return
-       
+def memReturnItem():
+    while True:
+        global LOGGED_IN_MEMBER_ID
+        clear_screen()
+        action = questionary.select(
+            "Return Item - Choose an action:",
+            choices=["Return an Item", "Back"]
+        ).ask()
+        
+        if action == "Return an Item":
+            # show list of borrwed items
+            borrowedList = show_borrowed_item(LOGGED_IN_MEMBER_ID)
+            
+            if borrowedList:
+                # title, itemID list
+                itemsList = []
+                for item in borrowedList:
+                    # get the itemID of each borrowed item
+                    itemID = dict(item)["itemID"]
+                    # get the item details of that item
+                    res = findByItemID(itemID)
+                    # get the item details
+                    for row in res:
+                        title = dict(row)["title"]
+                        itemsList.append((title, itemID))
+                        
+                     
+                # extract the titles and itemIDs for each borrowed item
+                borrowOptions = [f"{tup_title} (ID: {tup_itemID})" for tup_title, tup_itemID in itemsList]
+                
+                # ask the user to select the item
+                selected_option = questionary.select(
+                    "Which item would you like to return?",
+                    choices=borrowOptions
+                    ).ask()
+                
+                # extract the item id form the list
+                selected_itemID = int(selected_option.split(" (ID: ")[1].replace(")", ""))
+                
+                print("Returning item...")
+                # return item
+                return_item(LOGGED_IN_MEMBER_ID, selected_itemID)
+            else:
+                print("You have no borrowed items")
+            input("\nPress Enter to return to the menu...") 
+        
+        elif action == "Back":
+            return
+        
 # test email: john.smith@email.com
 def main_menu():
     while True:
@@ -175,6 +223,8 @@ def main_menu():
             memFindItem()
         elif choice == "Borrow Item":
             memBorrowItem()
+        elif choice == "Return Item":
+            memReturnItem()
         elif choice == "Logout":
             print("Logging out...")
             LOGGED_IN_MEMBER_ID = None
