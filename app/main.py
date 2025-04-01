@@ -240,10 +240,15 @@ def memDonateItem():
 
 
 def memRequestHelp():
-    global LOGGED_IN_MEMBER_ID
-    clear_screen()
-    request_librarian_assistance(LOGGED_IN_MEMBER_ID)
-    input("\nPress Enter to return to the menu...")
+    while True:
+        global LOGGED_IN_MEMBER_ID
+        clear_screen()
+        action = questionary.select(
+            "Ask a Librarian For Help - Choose an action:",
+            choices=["Ask a Librarian For Help", "Back"]
+        ).ask()
+        request_librarian_assistance(LOGGED_IN_MEMBER_ID)
+        input("\nPress Enter to return to the menu...")
 
 
 # test email: john.smith@email.com
