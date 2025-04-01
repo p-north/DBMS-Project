@@ -5,7 +5,7 @@ def connect_db():
     return sqlite3.connect("library.db")
 
 
-def request_librarian_assistance():
+def request_librarian_assistance(memberID):
     print("\nLibrary Help Request System")
     print("--------------------------")
 
@@ -13,10 +13,8 @@ def request_librarian_assistance():
         conn = connect_db()
         cursor = conn.cursor()
 
-        # Get member information
-        member_id = input("Enter your member ID: ")
         cursor.execute(
-            "SELECT memberID FROM member WHERE memberID = ?", (member_id,))
+            "SELECT memberID FROM member WHERE memberID = ?", (memberID,))
         member = cursor.fetchone()
 
         if not member:
@@ -65,7 +63,7 @@ def request_librarian_assistance():
             INSERT INTO help_request (memberID, employeeID, requestDate, topic, status)
             VALUES (?, ?, DATE('now'), ?, ?)
             """,
-            (member_id, employee_id, topic, status)
+            (memberID, employee_id, topic, status)
         )
         conn.commit()
         print("\nYour request has been submitted successfully!")
