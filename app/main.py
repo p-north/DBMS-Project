@@ -6,6 +6,10 @@ from services.find_item import find_item_basic, find_item_keyword, findByItemID
 from services.memberLogin import login
 from services.return_item import return_item, show_borrowed_item
 from services.librarian_help import request_librarian_assistance
+from services.volunteer import volunteer_for_event
+from services.find_event import find_event
+from services.register_event import _register_for_event
+from services.register_event import _view_event_registrations
 import os
 
 
@@ -238,6 +242,29 @@ def memDonateItem():
         elif action == "Back":
             return
 
+def memFindEvent():
+    while True:
+        clear_screen()
+        action = questionary.select(
+            "Find Event - Choose an action:",
+            choices=[
+                "Search Events",
+                "View All Upcoming Events",
+                "Back"
+            ]
+        ).ask()
+
+        if action == "Search Events":
+            search_term = questionary.text("Search by event name or date (YYYY-MM-DD):").ask()
+            find_event(search_term)  
+            input("\nPress Enter to return to the menu...")
+            
+        elif action == "View All Upcoming Events":
+            find_event()  # Call without arguments to show all
+            input("\nPress Enter to return to the menu...")
+            
+        elif action == "Back":
+            return
 
 def memRequestHelp():
     while True:
@@ -255,6 +282,60 @@ def memRequestHelp():
         elif action == "Back":
             return  # Exit the function and go back to the main menu
 
+def memRegisterEvent():
+    while True:
+        global LOGGED_IN_MEMBER_ID
+        clear_screen()
+        action = questionary.select(
+            "Event Registration - Choose an action:",
+            choices=[
+                "Register for Event",
+                "View My Event Registrations",
+                "Back"
+            ]
+        ).ask()
+
+        if action == "Register for Event":
+            if LOGGED_IN_MEMBER_ID is None:
+                print("Please login first.")
+                input("\nPress Enter to continue...")
+                continue
+                
+            _register_for_event(LOGGED_IN_MEMBER_ID)
+            input("\nPress Enter to return to the menu...")
+            
+        elif action == "View My Event Registrations":
+            if LOGGED_IN_MEMBER_ID is None:
+                print("Please login first.")
+                input("\nPress Enter to continue...")
+                continue
+                
+            _view_event_registrations(LOGGED_IN_MEMBER_ID)
+            input("\nPress Enter to return to the menu...")
+            
+        elif action == "Back":
+            return
+
+def memVolunteer():
+    while True:
+        global LOGGED_IN_MEMBER_ID
+        clear_screen()
+        action = questionary.select(
+            "Volunteer for Library - Choose an action:",
+            choices=["Volunteer for Event", "Back"]
+        ).ask()
+
+        if action == "Volunteer for Event":
+            if LOGGED_IN_MEMBER_ID is None:
+                print("Please login first.")
+                input("\nPress Enter to continue...")
+                continue
+                
+            volunteer_for_event(loginID=LOGGED_IN_MEMBER_ID)  # Changed LOGIN_ID to loginID
+            
+        elif action == "Back":
+            return
+            
 
 # test email: john.smith@email.com
 
@@ -275,7 +356,7 @@ def main_menu():
                 "Find Event",
                 "Register for Event",
                 "Volunteer for Library",
-                "Ask a Librarian for Help ",
+                "Ask a Librarian for Help",
                 "Logout",
                 "Exit"
             ]
@@ -288,6 +369,12 @@ def main_menu():
             memReturnItem()
         elif choice == "Donate Item":
             memDonateItem()
+        elif choice == "Find Event":
+            memFindEvent()
+        elif choice == "Register for Event":
+            memRegisterEvent()
+        elif choice == "Volunteer for Library":
+            memVolunteer()
         elif choice == "Ask a Librarian for Help":
             memRequestHelp()
         elif choice == "Logout":
