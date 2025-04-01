@@ -1,8 +1,8 @@
-# DBMS-Project
 
+
+# Step 2: Project Specifications (10 Points)
 ![DB Schema](images/Updated_Schema.png)
 
-## Step 2: Project Specifications (10 Points)
 
 	member = {memberId (PK), firstName,lastName, dateOfBirth, email, phone, address, membershipStart, membershipEnd}
 
@@ -67,49 +67,71 @@ A member can volunteer for multiple positions, but each volunteer position is on
 **personnel → help_request**
 A personnel can handle multiple help requests, but each help request is assigned to one personnel. Meaning this is a one to many
 
+
+# Step 3: E/R Diagram (10 Points)
 ![ER Diagram](images/ER_Diagram.jpg)
 
-# Identifying FD's
+# Step 4: Does your design allow anomalies? (15 Points)
 
 ## Member Table:
 <!-- -Attributes: {memberId (PK), firstName,lastName, dateOfBirth, email, phone, address, membershipStart, membershipEnd} -->
 FD: memberID -> firstName, lastName, dateOfBirth, email, phone, address, membershipStart, memebershipEnd
+<br/>
 BCNF: No violation since superkey exists.
 
 ## Item Table:
-FD: itemId -> title, itemType, author, publisher, publicationYear, edition, genre, language, ISBN, availableCopies, totalCopies, location .
+FD: itemId -> title, itemType, author, publisher, publicationYear, edition, genre, language, ISBN, availableCopies, totalCopies, location.
+<br/>
 BCNF: No violation since superkey exists.
 
 ## Personnel Table:
 FD: employeeId -> name, position, department, hireDate, contactInfo.
+<br/>
 BCNF: No violation since employeeID superkey exists.
 
 ## borrow_transaction Table:
-FD: transactionId (PK)-> borrowDate, dueDate, returnDate, fineAmount 
+FD: transactionId (PK)-> borrowDate, dueDate, returnDate, fineAmount.
+<br/>
 BCNF: No violation since transactionId  superkey exists.
 
 ## Fine Table
-FD: fineId (PK) -> amount, issueDate, paymentDate
+FD: fineId (PK) -> amount, issueDate, paymentDate.
+<br/>
 BCNF: No violation since fineId superkey exists.
 
 ## Event Table
-FD: eventId (PK) -> eventName, eventType, description, targetAudience, date, startTime, endTime, roomId (FK)
+FD: eventId (PK) -> eventName, eventType, description, targetAudience, date, startTime, endTime, roomId (FK).
+<br/>
 BCNF:  No violation since eventID determines all other attributes.
 
 ## Room Table
 FD: roomId (PK) -> roomName, capacity.
+<br/>
 BCNF: No violation as roomID determines roomName and capacity.
 
 ## future_item Table
 FD: futureItemID (PK) -> title, itemType, author, expectedArrivalDate, status.
+<br/>
 BCNF: No violation as futureItemID determines all other attributes.
 
 ## Reservations Table
-FD: reservationID (PK) -> reservationDate, status
+FD: reservationID (PK) -> reservationDate, status.
+<br/>
 BCNF: No violation exists.
 
+## Volunteer Table
+FD: volunteerID (PK) -> memberID, eventID, signup_date, role.
+<br/>
+BCNF: No violation exists as volunteerID is a superkey.
 
-# Library DB Schema
+## Help Request Table
+FD: requestID (PK) -> memberID, employeeID, requestDate, topic, status.
+<br/>
+BCNF: No violation exists as requestID is a superkey.
+
+
+
+# Step (5): SQL Schema (15 points)
 
 ``` sql
 --Create Tables
@@ -233,7 +255,7 @@ CREATE TABLE IF NOT EXISTS help_request (
     FOREIGN KEY (employeeID) REFERENCES personnel(employeeID)
 );
 ```
-
+# Step (6): Populate Tables (10 points)
 ```sql
 --Step 6: Populate Tables-------------------------
 INSERT INTO member (memberID, firstName, lastName, dateOfBirth, email, phone, address, membershipStart, membershipEnd) VALUES

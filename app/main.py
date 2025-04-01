@@ -17,8 +17,6 @@ import os
 LOGGED_IN_MEMBER_ID = None
 
 # function to clear the screen each time. For better user experience
-
-
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
