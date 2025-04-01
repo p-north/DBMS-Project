@@ -22,6 +22,11 @@
 
 	reservations = { reservationID (PK), memberId (FK), itemId (FK), reservationDate, status}
 
+ 	volunteer = {volunteerId (PK), memberId (FK), eventId (FK), signupDate, role}
+
+	help_request = {requestId (PK), memberId (FK), employeeId (FK), requestDate, topic, status}
+  	
+
 ## Relationships:
 
 **member -> borrow_transaction**
@@ -56,9 +61,13 @@ A room can host multiple events, but each event is in one room.
 
 Personnel organize events, but this isn’t explicitly modeled. Meaning this is indirect.
 
+**member → volunteer** 
+A member can volunteer for multiple positions, but each volunteer position is only for one member. Meaning this is a one to many
 
+**personnel → help_request**
+A personnel can handle multiple help requests, but each help request is assigned to one personnel. Meaning this is a one to many
 
-![ER Diagram](images/ER_Diagram.png)
+![ER Diagram](images/ER_Diagram.jpg)
 
 # Identifying FD's
 
