@@ -1,4 +1,4 @@
-from ..setup_database import connect_db
+from setup_database import connect_db
 import sqlite3
 from datetime import datetime
 # Return a borrowed item
@@ -52,7 +52,22 @@ def return_item(memberID, itemID):
         
         
     conn.close()
+
+def show_borrowed_item(memberID):
+    # connect to the db
+    conn = connect_db()
     
+    # create cursor
+    cursor = conn.cursor()
+    
+    try:
+        borrowQuery = "SELECT * FROM borrow_transaction t WHERE t.memberID = ? AND t.returnDate IS NULL"
+        cursor.execute(borrowQuery, (memberID,))
+        res = cursor.fetchall()
+        return res
+        
+    except sqlite3.Error as e:
+        print("Error returning item", e)
     
     
    
@@ -60,6 +75,7 @@ def return_item(memberID, itemID):
 # memberID = input("Enter memberID: ")
 # itemID = input("Enter itemID: ")
 # return_item(memberID, itemID)
+
 
  
    

@@ -1,4 +1,4 @@
-from ..setup_database import connect_db
+from setup_database import connect_db
 import sqlite3
 from datetime import datetime, timedelta
 
@@ -17,7 +17,7 @@ def borrow_item(itemID, memberID):
         cursor.execute("SELECT * FROM borrow_transaction t WHERE t.itemID = ? AND t.memberID = ? AND t.returnDate IS NULL", (itemID, memberID))
         dupCheck = cursor.fetchone()
         if dupCheck:
-            print("Member already borowed the item. Please return if no longer needed")
+            print("Member has already borowed the item. Please return if no longer needed")
             return None
         
         
