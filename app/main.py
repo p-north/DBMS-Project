@@ -247,8 +247,12 @@ def memRequestHelp():
             "Ask a Librarian For Help - Choose an action:",
             choices=["Ask a Librarian For Help", "Back"]
         ).ask()
-        request_librarian_assistance(LOGGED_IN_MEMBER_ID)
-        input("\nPress Enter to return to the menu...")
+
+        if action == "Ask a Librarian For Help":
+            request_librarian_assistance(LOGGED_IN_MEMBER_ID)
+            input("\nPress Enter to return to the menu...")
+        elif action == "Back":
+            return  # Exit the function and go back to the main menu
 
 
 # test email: john.smith@email.com
